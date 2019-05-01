@@ -1,0 +1,253 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul6;
+
+/**
+ *
+ * @author asus
+ */
+class Mahasiswa {
+
+    private long nim;
+    private String nama;
+    private String asal;
+
+    public Mahasiswa(long nim, String nama, String asal) {
+        this.nim = nim;
+        this.nama = nama;
+        this.asal = asal;
+    }
+
+    public void displayMahasiswa() {
+        System.out.print("\tNIM : " + nim);
+        System.out.print(", Nama : " + nama);
+        System.out.println(", Asal :" + asal);
+    }
+
+    public long getNim2() {
+        return nim;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+}
+
+class DataArray {
+
+    private Mahasiswa[] mhs;
+    private int nElemen;
+
+    public DataArray(int max) {
+        mhs = new Mahasiswa[max];
+        nElemen = 0;
+    }
+
+    public Mahasiswa find2(long searchNim) {
+        int i;
+        for (i = 0; i < nElemen; i++) {
+            if (mhs[i].getNim2() == searchNim) {
+                break;
+            }
+        }
+        if (i == nElemen) {
+            return null;
+        } else {
+            return mhs[i];
+        }
+    }
+
+    public void insert2(long nim, String nama, String asal) {
+        mhs[nElemen] = new Mahasiswa(nim, nama, asal);
+        nElemen++;
+    }
+
+    public boolean delete2(long searchNim) {
+        int i;
+        for (i = 0; i < nElemen; i++) {
+            if (mhs[i].getNim2() == searchNim) {
+                break;
+            }
+        }
+        if (i == nElemen) {
+            return false;
+        } else {
+            for (int j = 0; j < nElemen; j++) {
+                mhs[j] = mhs[j + 1];
+            }
+            nElemen--;
+            return true;
+        }
+    }
+    
+//     public void find1(int key) {
+//        int batasatas = mhs.length - 1, batasbawah = 0, tengah; //tengah = index
+//        while (true) {
+//            tengah = ((batasatas + batasbawah) / 2);
+//            if (mhs[tengah] == key) {
+//                System.out.println("Ditemukan " + key + " index ke = " + tengah);
+//                break;
+//            } else {
+//                if (batasbawah > batasatas) {
+//                    System.out.println("Tidak ditemukan");
+//                    break;
+//                } else {
+//                    if (mhs[tengah] < key) {
+//                        batasbawah = tengah + 1;
+//                    } else {
+//                        batasatas = tengah - 1;
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    public void displayArray() {
+        for (int i = 0; i < nElemen; i++) {
+            mhs[i].displayMahasiswa();
+        }
+    }
+
+    public void swap(int one, int two) {
+        Mahasiswa temp = mhs[one];
+        mhs[one] = mhs[two];
+        mhs[two] = temp;
+    }
+
+    public void mergeSort() {
+        Mahasiswa[] workSpace = new Mahasiswa[nElemen];
+        recMergeSort(workSpace, 0, nElemen - 1);
+    }
+
+    public void recMergeSort(Mahasiswa[] workSpace,
+            int lowerBound, int upperBound) {
+        if (lowerBound == upperBound) {
+            return;
+        } else {
+            int mid = (lowerBound + upperBound)
+                    / 2;
+            recMergeSort(workSpace, lowerBound,
+                    mid);
+            recMergeSort(workSpace, mid + 1, upperBound);
+            merge(workSpace, lowerBound,
+                    mid + 1, upperBound);
+        }
+    }
+
+    public void merge(Mahasiswa[] workSpace,
+            int lowIndex, int highIndex,
+            int upperBound) {
+
+        int j = 0;
+        int lowerBound = lowIndex;
+        int mid = highIndex - 1;
+        int nItem = upperBound - lowerBound + 1;
+
+        while (lowIndex <= mid
+                && highIndex <= upperBound) {
+            if (mhs[lowIndex].getNim2() < mhs[highIndex].getNim2()) {
+                workSpace[j++] = mhs[lowIndex++];
+            } else {
+                workSpace[j++] = mhs[highIndex++];
+            }
+        }
+
+        while (lowIndex <= mid) {
+            workSpace[j++] = mhs[lowIndex++];
+        }
+        while (highIndex <= upperBound) {
+            workSpace[j++] = mhs[highIndex++];
+        }
+        for (j = 0; j < nItem; j++) {
+            mhs[lowerBound + j] = workSpace[j];
+        }
+    }
+
+    public void ShellSort() {
+        int in, out;
+        Mahasiswa temp;
+        int h = nElemen / 2;
+
+        while (h > 0) {
+            for (out = h; out < nElemen; out++) {
+                temp = mhs[out];// mahasiswa index ke 4
+                in = out;
+                while (in > h - 1 && mhs[in - h].getNama().compareTo(temp.getNama()) > 0) {
+                    mhs[in] = mhs[in - h];
+                    in -= h;//in = in - h,
+                }
+                mhs[in] = temp;
+            }
+            h /= 2;//h = h/2
+        }
+    }
+
+    public void QuickSort() {
+        recQuickSort(0, nElemen - 1);
+    }
+
+    public void recQuickSort(int batasKiri,
+            int batasKanan) {
+        if (batasKanan - batasKiri <= 0) {
+            return;
+        } else {
+            long pivot = mhs[batasKanan].getNim2();
+            int partisi = partitionIt(batasKiri,
+                    batasKanan, pivot);
+            recQuickSort(batasKiri, partisi - 1);
+            recQuickSort(partisi + 1, batasKanan);
+        }
+    }
+
+    public int partitionIt(int batasKiri,
+            int batasKanan, long pivot) {
+        int indexKiri = batasKiri - 1;
+        int indexKanan = batasKanan + 1;
+        while (true) {
+            while (indexKiri < batasKanan
+                    && mhs[++indexKiri].getNim2() < pivot) ;
+            while (indexKanan > batasKiri
+                    && mhs[--indexKanan].getNim2() > pivot) ;
+            if (indexKiri >= indexKanan) {
+                break;
+            } else {
+                swap(indexKiri, indexKanan);
+            }
+        }
+        return indexKiri;
+    }
+
+}
+
+public class NIMGANJIL {
+
+    public static void main(String[] args) {
+        DataArray dt = new DataArray(10);
+        System.out.println("Data sebelum di acak");
+
+        
+        dt.insert2(16650220, "Ismali", "Banyuwangi");
+        dt.insert2(16650270, "Agung", "Madiun");
+        dt.insert2(16650260, "Helmi", "Madura");
+        dt.insert2(16650240, "Dinda", "Bandung");
+        dt.insert2(16650250, "Rais", "Ambon");
+        dt.insert2(16650230, "Sofi", "Semarang");
+        dt.insert2(16650210, "Ahmad", "Sidoarjo");
+        dt.insert2(16650200, "Jundi", "Malang");
+
+        dt.displayArray();
+
+//        System.out.println("Merge Sort");
+//        dt.mergeSort();
+//        dt.displayArray();
+//        System.out.println("Shell Sort");
+//        dt.ShellSort();
+//        dt.displayArray();
+        System.out.println("Quick Sort");
+        dt.QuickSort();
+        dt.displayArray();
+    }
+}
