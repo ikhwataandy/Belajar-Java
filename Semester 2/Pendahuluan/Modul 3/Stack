@@ -1,0 +1,63 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Pendahuluan_3;
+
+/**
+ *
+ * @author asus
+ */
+class Stack {
+    private int maxSize;
+    private long [] stackArray;
+    private int top;
+    
+    public Stack(int size){
+        maxSize = size;
+        stackArray = new long[maxSize];
+        top = -1;
+    }
+    
+    public void push(long item){ // menambah kan data
+        stackArray[++top] = item;
+    }
+    
+    public long pop(){ // mengeluarkan data terakhir/mengambil data paling atas
+        return stackArray[top--];
+    }
+    
+    public long peek(){
+        return stackArray[top];
+    }
+    
+    public boolean isEmpty(){
+        return (top == -1);
+    }
+    
+    public boolean isFull(){
+        return (top == maxSize-1);
+    }
+}
+
+public class stackApp{
+    
+    public static void main(String[] args) {
+        Stack theStack = new Stack(10);
+        System.out.println(">> push some items");
+        theStack.push(20);
+        theStack.push(40);
+        theStack.push(60);
+        theStack.push(80);
+        
+        System.out.println("\n>> pop items in the stack");
+        
+        while(!theStack.isEmpty()){ // kosobgkan
+            long value = theStack.pop();//mengeluarkan data terakhir
+            System.out.print(value+" ");
+        }
+    }
+}
+
+
