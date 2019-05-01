@@ -1,0 +1,138 @@
+class Link1 {
+
+    public int DataDB;
+    public String Barang;
+    public Link1 next1;
+    public Link1 previous;
+
+    public Link1(int DataDB,String Barang) {
+        this.DataDB = DataDB;
+        this.Barang = Barang;
+    }
+
+    public void displayLink() {
+        System.out.print(DataDB + "," +Barang);
+    }
+}
+
+class DoublyLinkedList {
+
+    private Link1 first;
+    private Link1 last;
+
+    public DoublyLinkedList() {
+        first = null;
+        last = null;
+    }
+
+    public boolean isEmpty1() {
+        return first == null;
+    }
+
+    public void insertFirst1(int DataDB,String Barang) {
+        Link1 newLink1 = new Link1(DataDB,Barang);
+        if (isEmpty1()) {
+            last = newLink1;
+        } else {
+            first.previous = newLink1;
+        }
+        newLink1.next1 = first;
+        first = newLink1;
+    }
+
+    public void insertLast1(int DataDB,String Barang) {
+        Link1 newLink1 = new Link1(DataDB,Barang);
+        if (isEmpty1()) {
+            first = newLink1;
+        } else {
+            last.next1 = newLink1;
+            newLink1.previous = last;
+        }
+        last = newLink1;
+    }
+
+    public Link1 deleteFirst1() {
+        Link1 temp = first;
+        if (first.next1 == null) {
+            last = null;
+        } else {
+            first.next1.previous = null;
+        }
+        first = first.next1;
+        return temp;
+    }
+
+    public Link1 deleteLast1() {
+        Link1 temp = last;
+        if (first.next1 == null) {
+            first = null;
+        } else {
+            last.previous.next1 = null;
+        }
+        last = last.previous;
+        return temp;
+    }
+
+    public boolean insertAfter( int DataDB, String Barang) {
+        Link1 cr = first;
+//        while (cr.DataDB != kunci) {
+//            cr = cr.next1;
+//            if (cr == null) {
+//                return false;
+//            }
+//        }
+        Link1 newlLink1 = new Link1(DataDB,Barang);
+        if (cr == last) {
+            newlLink1.next1 = null;
+            last = newlLink1;
+        } else {
+            newlLink1.next1 = cr.next1;
+            cr.next1.previous = newlLink1;
+        }
+        newlLink1.previous = cr;
+        cr.next1 = newlLink1;
+        return true;
+    }
+
+
+    public void displayForward1() {
+        System.out.print("List " + "(First-->Last) :");
+        Link1 cr = first;
+        while (cr != null) {
+            cr.displayLink();
+            cr = cr.next1;
+        }
+        System.out.println("");
+    }
+
+    public void displayBackwar1() {
+        System.out.print("List "
+                + "(last-->first) : ");
+        Link1 cr = last;
+        while (cr != null) {
+            cr.displayLink();
+            cr = cr.previous;
+        }
+        System.out.println("");
+    }
+}
+
+public class QueueLinkedList {
+
+    public static void main(String[] args) {
+        DoublyLinkedList que = new DoublyLinkedList();
+
+        que.insertFirst1(1665100, "Dea");
+        que.insertFirst1(1665200, "Deaja");
+        que.displayForward1();
+
+        que.insertAfter(1665300, "Ami");
+        que.insertAfter(1665400, "Haya");
+        que.insertAfter(1665500, "Yani");
+        que.displayForward1();
+        
+        que.deleteFirst1();
+        que.deleteFirst1();
+        que.displayForward1();
+    }
+}
