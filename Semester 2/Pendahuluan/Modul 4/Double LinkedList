@@ -1,0 +1,177 @@
+package Pendahuluan_4;
+
+class Link1 {
+
+    public int DataDB;
+    public Link1 next1;
+    public Link1 previous;
+
+    public Link1(int DataDB) {
+        this.DataDB = DataDB;
+    }
+
+    public void displayLink() {
+        System.out.print(DataDB + " ");
+    }
+}
+
+class DoublyLinkedList {
+
+    private Link1 first;
+    private Link1 last;
+
+    public DoublyLinkedList() {
+        first = null;
+        last = null;
+    }
+
+    public boolean isEmpty1() {
+        return first == null;
+    }
+
+    public void insertFirst1(int Data1) {
+        Link1 newLink1 = new Link1(Data1);
+        if (isEmpty1()) {
+            last = newLink1;
+        } else {
+            first.previous = newLink1;
+        }
+        newLink1.next1 = first;
+        first = newLink1;
+    }
+
+    public void insertLast1(int Data1) {
+        Link1 newLink1 = new Link1(Data1);
+        if (isEmpty1()) {
+            first = newLink1;
+        } else {
+            last.next1 = newLink1;
+            newLink1.previous = last;
+        }
+        last = newLink1;
+    }
+
+    public Link1 deleteFirst1() {
+        Link1 temp = first;
+        if (first.next1 == null) {
+            last = null;
+        } else {
+            first.next1.previous = null;
+        }
+        first = first.next1;
+        return temp;
+    }
+
+    public Link1 deleteLast1() {
+        Link1 temp = last;
+        if (first.next1 == null) {
+            first = null;
+        } else {
+            last.previous.next1 = null;
+        }
+        last = last.previous;
+        return temp;
+    }
+
+    public boolean insertAfter(int kunci, int Data1) {
+        Link1 cr = first;
+        while (cr.DataDB != kunci) {
+            cr = cr.next1;
+            if (cr == null) {
+                return false;
+            }
+        }
+        Link1 newlLink1 = new Link1(Data1);
+        if (cr == last) {
+            newlLink1.next1 = null;
+            last = newlLink1;
+        } else {
+            newlLink1.next1 = cr.next1;
+            cr.next1.previous = newlLink1;
+        }
+        newlLink1.previous = cr;
+        cr.next1 = newlLink1;
+        return true;
+    }
+
+    public Link1 deleteKey1(int kunci) {
+        Link1 cr = first;
+        while (cr.DataDB != kunci) {
+            cr = cr.next1;
+            if (cr == null) {
+                return null;
+            }
+        }
+        if (cr == first) {
+            first = cr.next1;
+        } else {
+            cr.previous.next1 = cr.next1;
+        }
+        if (cr == last) {
+            last = cr.previous;
+        } else {
+            cr.next1.previous = cr.previous;
+        }
+        return cr;
+    }
+
+    public void displayForward1() {
+        System.out.print("List " + "(First-->Last) :");
+        Link1 cr = first;
+        while (cr != null) {
+            cr.displayLink();
+            cr = cr.next1;
+        }
+        System.out.println("");
+    }
+
+    public void displayBackwar1() {
+        System.out.print("List "
+                + "(last-->first) : ");
+        Link1 cr = last;
+        while (cr != null) {
+            cr.displayLink();
+            cr = cr.previous;
+        }
+        System.out.println("");
+    }
+}
+
+public class DoubleLinkedListApp {
+
+    public static void main(String[] args) {
+        DoublyLinkedList theList1 = new DoublyLinkedList();
+
+        theList1.insertFirst1(22);
+        theList1.insertFirst1(44);
+        theList1.insertFirst1(66);
+        System.out.println("Display Forward");
+        theList1.displayForward1();
+        theList1.insertLast1(11);
+        theList1.insertLast1(33);
+        theList1.insertLast1(55);
+        System.out.println("\nDisplay Forward");
+        theList1.displayForward1();
+        System.out.println("\nDisplay Backward");
+        theList1.displayBackwar1();
+        System.out.println("\nDelete First");
+        theList1.deleteFirst1();
+        System.out.println("\nDisplay Forward");
+        theList1.displayForward1();
+
+        theList1.deleteLast1();
+        System.out.println("\nDelete Last");
+        System.out.println("Display Forward");
+        theList1.displayForward1();
+        System.out.println("\nDelete 11");
+        theList1.deleteKey1(11);
+        theList1.displayForward1();
+        System.out.println("\nDisplay Forward");
+        theList1.insertAfter(22, 77);
+        theList1.insertAfter(33, 88);
+        System.out.println("Insert After");
+        theList1.displayForward1();
+
+    }
+
+}
