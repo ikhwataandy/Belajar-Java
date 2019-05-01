@@ -1,0 +1,78 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul1;
+
+/**
+ *
+ * @author asus
+ */
+class HighArray12 {
+
+    private int[] arr;
+    private int nElemen;
+
+    public HighArray12(int max) {
+        arr = new int[max];
+        nElemen = 0;
+    }
+
+    public void insert(int value) {
+        arr[nElemen] = value;
+        nElemen++;
+    }
+
+    public void find1(int key) {
+        int batasatas = arr.length - 1, batasbawah = 0, tengah; //tengah = index
+        while (true) {
+            tengah = ((batasatas + batasbawah) / 2);
+            if (arr[tengah] == key) {
+                System.out.println("Ditemukan " + key + " index ke = " + tengah);
+                break;
+            } else {
+                if (batasbawah > batasatas) {
+                    System.out.println("Tidak ditemukan");
+                    break;
+                } else {
+                    if (arr[tengah] < key) {
+                        batasbawah = tengah + 1;
+                    } else {
+                        batasatas = tengah - 1;
+                    }
+                }
+            }
+        }
+    }
+
+    public void display() {
+        for (int i = 0; i < nElemen; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println("");
+    }
+}
+
+public class praktikum1_nomer2 {
+
+    public static void main(String[] args) {
+        int maxSize = 8;
+        HighArray12 arr;
+        arr = new HighArray12(maxSize);
+
+        arr.insert(15);
+        arr.insert(30);
+        arr.insert(45);
+        arr.insert(53);
+        arr.insert(66);
+        arr.insert(77);
+        arr.insert(79);
+        arr.insert(81);
+
+        arr.display();
+
+        int key = 30;
+        arr.find1(key);
+    }
+}
