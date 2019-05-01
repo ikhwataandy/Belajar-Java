@@ -1,0 +1,26 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul5;
+
+/**
+ *
+ * @author asus
+ */
+public class nomer1 {
+    public static int NilaiPangkat(int base, int exponent){
+        if (exponent == 0) {
+            return 1;
+        }else{
+            return base * NilaiPangkat(base, exponent-1);
+        }
+       
+    }
+    public static void main(String[] args) {
+        System.out.println("2^10 = "+NilaiPangkat(2, 10));
+        System.out.println("3^ 5 = "+NilaiPangkat(3, 5));
+        System.out.println("3^ 6 = "+NilaiPangkat(3, 16));
+    }
+}
