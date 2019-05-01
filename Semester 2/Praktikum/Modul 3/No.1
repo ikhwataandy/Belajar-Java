@@ -1,0 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul3;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+/**
+ *
+ * @author asus
+ */
+class stack {
+
+    private int maxSize;
+    private Character[] stackArray;
+    private int top;
+
+    public stack(int size) {
+        maxSize = size;
+        stackArray = new Character[maxSize];
+        top = -1;
+    }
+
+    public void push(Character item) { // menambah kan data
+        stackArray[++top] = item;
+    }
+
+    public Character pop() { // mengeluarkan data terakhir/mengambil data paling atas
+        return stackArray[top--];
+    }
+
+    public Character peek() {
+        return stackArray[top];
+    }
+
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    public boolean isFull() {
+        return (top == maxSize - 1);
+    }
+}
+
+class Pembalik {
+
+    public String pembalikkata(int size, String kata) {
+        stack st = new stack(size);
+
+        //menambhakan kata dalam stack
+        for (int i = 0; i < kata.length(); i++) {
+            st.push(kata.charAt(i));
+        }
+
+        //megeluarkan kata dari stack
+        String out = " ";
+        while (!st.isEmpty()) {//ketika tumpukan dalam keadaan kosong
+            out += st.pop();
+        }
+        return out;
+    }
+}
+
+public class nomer1 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        //soalA
+        System.out.println(">> katanya :");
+        String kata = "Kasur";
+        System.out.println(kata);
+
+        int size = kata.length();
+        Pembalik pb = new Pembalik();
+
+        System.out.println(">> dibalik jadi :");
+        System.out.println(pb.pembalikkata(size, kata));
+
+        //soalB
+        for (int i = 0; i < 2; i++) {
+            System.out.println("Masukkan kata :");
+            kata = sc.next();
+
+            size = kata.length();
+
+            pb = new Pembalik();
+
+            System.out.println("Kebalikan :");
+            System.out.println(pb.pembalikkata(size, kata));
+        }
+
+    }
+}
