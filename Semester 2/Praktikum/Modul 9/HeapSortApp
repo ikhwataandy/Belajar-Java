@@ -1,0 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul9;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+class NodeHeap {
+
+    private int data;
+
+    public NodeHeap(int key) {
+        data = key;
+    }
+
+    public int getKey() {
+        return data;
+    }
+}
+
+class Heap {
+
+    private NodeHeap[] heapArray;
+    private int maxSize;
+    private int currentSize;//ini dinamis
+
+    public Heap(int size) {
+        maxSize = size;
+        currentSize = 0;
+        heapArray = new NodeHeap[size];
+    }
+
+    public NodeHeap remove() {
+        NodeHeap root = heapArray[0];
+
+        heapArray[0] = heapArray[--currentSize];
+        trickleDown(0);
+        return root;
+    }
+
+    public void trickleDown(int index) {
+        int largerChild;
+        NodeHeap top = heapArray[index];
+        while (index < currentSize / 2) {
+            int leftChild = 2 * index + 1;
+            int rightChild = leftChild + 1;
+
+            if (rightChild < currentSize && heapArray[leftChild].getKey() < heapArray[rightChild].getKey()) {
+                largerChild = rightChild;
+            } else {
+                largerChild = leftChild;
+            }
+            if (top.getKey() >= heapArray[largerChild].getKey()) {
+                break;
+            }
+            heapArray[index] = heapArray[largerChild];
+            index = largerChild;
+        }
+        heapArray[index] = top;
+    }
+
+    public void displayArray() {
+        for (int j = 0; j < maxSize; j++) {
+            System.out.print(heapArray[j].getKey() + " ");
+        }
+        System.out.println("");
+    }
+
+    public void insertAt(int index, int value) {
+        NodeHeap newNode = new NodeHeap(value);
+        heapArray[index] = newNode;
+        currentSize++;
+    }
+
+    public void HeapSort() {
+        for (int j = maxSize - 1; j >= 0; j--) {
+            for (int i = maxSize / 2 - 1; i >= 0; i--) {
+                trickleDown(i);
+            }
+            NodeHeap remove = this.remove();
+            heapArray[j] = remove;
+        }
+    }
+}
+
+public class HeapSortApp {
+
+    public static void main(String[] args) throws IOException {
+        int maxSize = 10;
+
+        Heap heap = new Heap(maxSize);
+        for (int i = 0; i < maxSize; i++) {
+            int random = (int)(java.lang.Math.random()*100);
+            heap.insertAt(i, random);
+        }
+
+        System.out.println("Array sebelum di urutkan");
+        heap.displayArray();
+
+        heap.HeapSort();
+        System.out.println("\nArray sesudah di urutkan");
+        heap.displayArray();
+    }
+}
