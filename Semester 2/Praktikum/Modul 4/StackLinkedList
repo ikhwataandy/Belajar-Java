@@ -1,0 +1,87 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul4;
+
+/**
+ *
+ * @author asus
+ */
+class Stack {
+
+    int id;
+    String barang;
+    Stack link;
+
+}
+
+class LinkedList1 {
+
+    Stack top;
+    private Stack first;
+
+    public LinkedList1() {
+        this.top = null;
+    }
+
+    public void push(int id, String barang) {
+        Stack stack = new Stack();
+
+        // cek jika stack penuh
+        if (stack == null) {
+            System.out.println("Stack penuh !!!");
+//            return;
+        }
+
+        // mengisi data dari input
+        stack.id = id;
+        stack.barang = barang;
+
+        // put top into temp link
+        stack.link = top;
+
+        // update top
+        top = stack;
+
+    }
+    public void pop() {
+        top =top.link;
+    }
+
+    public void display() {
+        Stack stack = top;
+
+        System.out.println("Stack(top --> bottom) :");
+        while (stack != null) {
+            System.out.print("{" + stack.id + ", " + stack.barang + "}");
+            System.out.println();
+
+            stack = stack.link;
+        }
+        System.out.println();
+
+    }
+}
+
+public class StackLinkedList {
+
+    public static void main(String[] args) {
+        LinkedList1 stack = new LinkedList1();
+
+        stack.push(1, "VCD");
+        stack.push(2, "TV");
+        stack.display();
+
+        stack.push(3, "Kulkas");
+        stack.push(4, "PC");
+        stack.push(5, "Rice Cooker");
+        stack.push(6, "Dispenser");
+        stack.display();
+
+        stack.pop();
+        stack.pop();
+        stack.display();
+    }
+}
