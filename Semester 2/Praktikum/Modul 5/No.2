@@ -1,0 +1,51 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul5;
+
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author asus
+ */
+public class nomer2 {
+//    static void doMenara(int n, char dari_cakram, char ke_cakram, char c){
+//        if (n == 1) {
+//            System.out.println("Pindahkan cakram 1 Dari menara "+dari_cakram+" ke menara "+ke_cakram);
+//            return;
+//        }
+//        doMenara(n-1, dari_cakram, c, ke_cakram);
+//        System.out.println("pindahkan cakram "+ n +" dari menara "+dari_cakram +" ke menara "+ke_cakram);
+//        doMenara(n-1, dari_cakram, ke_cakram, c);
+//    }
+//    public static void main(String[] args) {
+//        int n = 3;
+//        doMenara(n, 'A', 'B', 'C');
+//        System.out.println("Banyaknya perulangan = ");
+//    }
+
+    static int move = 1;
+
+    static void hanoi(int n, char awal, char bantu, char tujuan) {
+
+        if (n >= 1) {
+            hanoi(n - 1, awal, tujuan, bantu);
+
+            System.out.print("Langkah " + move + "\n");
+            move++;
+
+            System.out.println("Pindahkan balok " + n + " dari " + awal + " ke " + tujuan + "\n");
+            hanoi(n - 1, bantu, awal, tujuan);
+        }
+    }
+
+    public static void main(String[] args) {
+        String input = JOptionPane.showInputDialog("masukkan jumlah  balok:");
+
+        int n = Integer.parseInt(input);
+        hanoi(n, 'A', 'B', 'C');
+    }
+}
