@@ -1,0 +1,69 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul1;
+
+/**
+ *
+ * @author asus
+ */
+class HighArray {
+
+    private int[] arr;
+    private int nElemen;
+
+    public HighArray(int max) {
+        arr = new int[max];
+        nElemen = 0;
+    }
+
+    public void insert(int value) {
+        arr[nElemen] = value;
+        nElemen++;
+    }
+
+    public void display() {
+        for (int i = 0; i < nElemen; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println("");
+    }
+
+    public int sort(int nilaibaru) {
+        for (int i = nElemen-1; i >= 0; i--) {
+            if (nilaibaru < arr[i]) {
+                arr[i+1] = arr[i];             
+            }else{
+                arr[i+1] = nilaibaru;
+                break;
+            }
+        }
+        return nElemen++; // menambah supaya bisa kebaca semua
+    }
+}
+
+public class praktikum1_nomer1 {
+
+    public static void main(String[] args) {
+        int maxSize = 9;
+        HighArray arr;
+        arr = new HighArray(maxSize);
+
+        arr.insert(15);
+        arr.insert(30);
+        arr.insert(45);
+        arr.insert(53);
+        arr.insert(77);
+        arr.insert(79);
+        arr.insert(81);
+
+        arr.display();
+        
+        System.out.println("Array sesudah ditambahkan");
+        int key = 20;
+        arr.sort(key);
+        arr.display();
+    }
+}
