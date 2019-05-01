@@ -1,0 +1,123 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package modul1;
+
+/**
+ *
+ * @author asus
+ */
+class mahasiswa {
+
+    private long nim;
+    private String nama;
+    private String asal;
+
+    public mahasiswa(long nim, String nama, String asal) {
+        this.nim = nim;
+        this.nama = nama;
+        this.asal = asal;
+    }
+
+    public void displayMhs() {
+        System.out.print("\tNIM: " + nim);
+        System.out.print(", Nama: " + nama);
+        System.out.println(", Asal: " + asal);
+    }
+
+    public long getNim2() {
+        return nim;
+    }
+}
+
+    class DataArray2 {
+
+        private mahasiswa[] mhs;
+        private int nElemen;
+
+        public DataArray2(int max) {
+            mhs = new mahasiswa[max];
+            nElemen = 0;
+        }
+
+        public mahasiswa find2(long searchNim) {
+            int i;
+            for (i = 0; i < nElemen; i++) {
+                if (mhs[i].getNim2() == searchNim) {
+                    break;
+                }
+            }
+            if (i == nElemen) {
+                return null;
+            } else {
+                return mhs[i];
+            }
+        }
+
+        public void insert2(long nim, String nama, String asal) {
+            mhs[nElemen] = new mahasiswa(nim, nama, asal);
+            nElemen++;
+        }
+
+        public boolean delete2(long searchNim) {
+            int i;
+            for (i = 0; i < nElemen; i++) {
+                if (mhs[i].getNim2() == searchNim) {
+                    break;
+                }
+            }
+            if (i == nElemen) {
+                return false;
+            } else {
+                for (int j = 0; j < nElemen; j++) {
+                    mhs[j] = mhs[j + 1];
+                }
+                nElemen--;
+                return true;
+            }
+        }
+
+        public void displayArray() {
+            for (int i = 0; i < nElemen; i++) {
+                mhs[i].displayMhs();
+            }
+        }
+}
+
+
+public class praktikum1_nomer3 {
+
+    public static void main(String[] args) {
+        int maxSize = 100;
+        DataArray2 arr;
+        arr = new DataArray2(maxSize);
+        arr.insert2(16650200, "Jundi", "Malang");
+        arr.insert2(16650210, "Ahmad", "Sidoarjo");
+        arr.insert2(16650220, "Ismali", "Banyuwangi");
+        arr.insert2(16650230, "Sofi", "Semarang");
+        arr.insert2(16650240, "Dinda", "Bandung");
+        arr.insert2(16650250, "rais", "Ambon");
+        arr.insert2(16650260, "Helmi", "Madura");
+        arr.insert2(16650270, "Agung", "Madiun");
+        arr.insert2(16650200, "Arina", "Malang");
+        
+        arr.displayArray();
+        
+        long searchKey = 16650270;
+        mahasiswa mhs = arr.find2(searchKey);
+        if (mhs != null) {
+            System.out.print("\nKetemu");
+            mhs.displayMhs();
+        }else{
+            System.out.println("Gak Ketemu"+ searchKey);
+        }
+        
+        searchKey=16650240;
+        System.out.println("\nHapus nim = "+searchKey);
+        arr.delete2(searchKey);
+        
+        arr.displayArray();
+    }
+}
