@@ -1,0 +1,69 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modul3;
+
+/**
+ *
+ * @author asus
+ */
+public class Latihan2 {
+    private double [] data;
+    private double []nilaiubah;
+    private double[] perkalian;
+
+    public double[] getData() {
+        return data;
+    }
+
+    public void setData(double[] data) {
+        this.data = data;
+    }
+
+    public double[] getNilaiUbah() {
+        return nilaiubah;
+    }
+
+    public void setNilaiUbah(int a,int b) {
+        nilaiubah = new double[data.length];
+        for (int i = 0; i < data.length; i++) {
+           nilaiubah[i] = data[i]; 
+            if (nilaiubah[i] == a) {
+                nilaiubah[i] =b;
+            }
+        }
+    }
+    
+    public void cetak(String a){
+        System.out.println(a);
+    }
+    public void cetak (double[] data){
+        for (int i = 0; i < data.length; i++) {
+            System.out.println(data[i]);
+        }
+    }
+    
+    public void cetak(String a[]) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != null) {
+                System.out.println(a[i] + "");
+            }
+        }
+    }
+
+    public double[] getPerkalian() {
+        return perkalian;
+    }
+
+    public void setPerkalian(double[]a,double nilai) {
+        perkalian = a;
+        for (int i = 0; i < data.length; i++) {
+            perkalian[i] = a[i] * nilai;
+        }
+    }
+
+    
+    
+}
